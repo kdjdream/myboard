@@ -1,5 +1,5 @@
 
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const sha = require('sha256');
@@ -9,7 +9,12 @@ const ObjId = require("mongodb").ObjectId;
 //const url =  "mongodb+srv://admin:1111@cluster0.hmvwkf5.mongodb.net/?retryWrites=true&w=majority";
 // const url = "mongodb+srv://kimsfactories_db:rlaehdwn@1stcluster.fx9gush.mongodb.net/?appName=1stCluster";
 const url = process.env.DB_URL;
-console.log("DB_URL:", url);
+const port = Number(process.env.PORT) || 8080;
+const sessionSecret = process.env.SESSION_SECRET || "local-development-secret";
+
+if (!url) {
+  throw new Error("DB_URL 환경변수가 필요합니다.");
+}
 
 let mydb;
 mongoclient
@@ -21,51 +26,18 @@ mongoclient
       console.log('몽고DB 접속 성공');
     })
 
-    app.listen(process.env.PORT, function () {
-      console.log("포트 8080으로 서버 대기중 ... ");
+    app.listen(port, "0.0.0.0", function () {
+      console.log(`${port} 포트로 서버 대기중 ...`);
     });
   })
   .catch((err) => {
     console.log(err);
   });
 
-// MySQL + nodejs 접속 코드
-var mysql = require("mysql2");
-// mysql
-// var conn = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "kdj8974",
-//   database: "myboard",
-// });
-
-// mariaDB + nodejs 접속 코드
-var conn = mysql.createConnection({
-  host: "mariadb",
-  port: 3306,
-  user: "root",
-  password: "kdj8974",
-  database: "myboard",
-  charset: "utf8mb4"
-});
-
-
-conn.connect();
-
-conn.connect((error) => {
-  if (error) {
-    console.error("MariaDB 연결 실패:", error.message);
-    return;
-  }
-
-  console.log("MariaDB 연결 성공");
-});
-
-
 let session = require("express-session");
 app.use(
   session({
-    secret: "dkufe8938493j4e08349u",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: true,
   })
