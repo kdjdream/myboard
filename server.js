@@ -31,12 +31,23 @@ mongoclient
 
 // MySQL + nodejs 접속 코드
 var mysql = require("mysql2");
+// mysql
+// var conn = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "kdj8974",
+//   database: "myboard",
+// });
+
+// mariaDB + nodejs 접속 코드
 var conn = mysql.createConnection({
-  host: "localhost",
+  host: "mariadb",
+  port: 3306,
   user: "root",
   password: "kdj8974",
   database: "myboard",
 });
+
 
 conn.connect();
 
