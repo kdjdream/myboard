@@ -7,8 +7,8 @@ const sha = require('sha256');
 const mongoclient = require("mongodb").MongoClient;
 const ObjId = require("mongodb").ObjectId;
 //const url =  "mongodb+srv://admin:1111@cluster0.hmvwkf5.mongodb.net/?retryWrites=true&w=majority";
-// const url = "mongodb+srv://kimsfactories_db:rlaehdwn@1stcluster.fx9gush.mongodb.net/?appName=1stCluster";
-const url = process.env.DB_URL;
+const url = "mongodb+srv://kimsfactories_db:rlaehdwn@1stcluster.fx9gush.mongodb.net/?appName=1stCluster";
+// const url = process.env.DB_URL;
 const port = Number(process.env.PORT) || 8080;
 const sessionSecret = process.env.SESSION_SECRET || "local-development-secret";
 
