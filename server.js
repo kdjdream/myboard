@@ -46,11 +46,20 @@ var conn = mysql.createConnection({
   user: "root",
   password: "kdj8974",
   database: "myboard",
+  charset: "utf8mb4"
 });
 
 
 conn.connect();
 
+conn.connect((error) => {
+  if (error) {
+    console.error("MariaDB 연결 실패:", error.message);
+    return;
+  }
+
+  console.log("MariaDB 연결 성공");
+});
 
 
 let session = require("express-session");
